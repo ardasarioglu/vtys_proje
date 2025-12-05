@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1280</width>
+    <height>720</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1280</width>
+    <height>720</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_musteriler">
+       <attribute name="title">
+        <string>Müşteriler</string>
+       </attribute>
+       <widget class="QTableWidget" name="musterilerTableWidget">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>40</y>
+          <width>1241</width>
+          <height>561</height>
+         </rect>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+        <column>
+         <property name="text">
+          <string>ID</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Ad</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Soyad</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>E-Posta</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Telefon</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Adres</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Doğum Tarihi</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Ehliyet No</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QLineEdit" name="musteriaramaLineEdit">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>1161</width>
+          <height>20</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="musterifiltreButton">
+        <property name="geometry">
+         <rect>
+          <x>1180</x>
+          <y>10</y>
+          <width>71</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Filtrele</string>
+        </property>
+       </widget>
+       <widget class="QWidget" name="">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>604</y>
+          <width>1241</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="musteriyenimusteriButton">
+           <property name="text">
+            <string>Yeni Müşteri Ekle</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="musterisilButton">
+           <property name="text">
+            <string>Sil</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="musteriguncelleButton">
+           <property name="text">
+            <string>Güncelle</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_arac_envanteri">
+       <attribute name="title">
+        <string>Araç Envanteri</string>
+       </attribute>
+       <widget class="QTableWidget" name="araclarTableWidget">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>40</y>
+          <width>1241</width>
+          <height>561</height>
+         </rect>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+        <column>
+         <property name="text">
+          <string>ID</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Plaka</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Marka</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Model</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Yıl</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Renk</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Kilometre</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Günlük Kira Bedeli</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Durum</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QLineEdit" name="aracaraLineEdit">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>1161</width>
+          <height>20</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="aracfiltreButton">
+        <property name="geometry">
+         <rect>
+          <x>1180</x>
+          <y>10</y>
+          <width>71</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Filtrele</string>
+        </property>
+       </widget>
+       <widget class="QWidget" name="">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>600</y>
+          <width>1241</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QPushButton" name="aracekleButton">
+           <property name="text">
+            <string>Yeni Araç Ekle</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="aracsilButton">
+           <property name="text">
+            <string>Sil</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="aracguncelleButton">
+           <property name="text">
+            <string>Güncelle</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_kiralama_islemleri">
+       <attribute name="title">
+        <string>Kiralama İşlemleri</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_raporlar">
+       <attribute name="title">
+        <string>Raporlar</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1280</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

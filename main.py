@@ -5,9 +5,6 @@ from PyQt5.QtCore import QDate
 import sqlite3
 from datetime import datetime
 
-# ==========================================
-# 1. YENİ MÜŞTERİ EKLEME PENCERESİ
-# ==========================================
 class YeniMusteriDialog(QDialog):
     def __init__(self):
         super(YeniMusteriDialog, self).__init__()
@@ -46,9 +43,6 @@ class YeniMusteriDialog(QDialog):
         finally:
             if hasattr(self, 'conn'): self.conn.close()
 
-# ==========================================
-# 2. MÜŞTERİ GÜNCELLEME PENCERESİ
-# ==========================================
 class GuncelleMusteriDialog(QDialog):
     def __init__(self):
         super(GuncelleMusteriDialog, self).__init__()
@@ -100,9 +94,6 @@ class GuncelleMusteriDialog(QDialog):
         finally:
             if hasattr(self, 'conn'): self.conn.close()
 
-# ==========================================
-# 3. MÜŞTERİ FİLTRELEME PENCERESİ
-# ==========================================
 class MusteriFiltreDialog(QDialog):
     def __init__(self):
         super(MusteriFiltreDialog, self).__init__()
@@ -112,9 +103,6 @@ class MusteriFiltreDialog(QDialog):
         self.btn_filtre_uygula.clicked.connect(self.accept)
         self.btn_filtre_iptal.clicked.connect(self.close)
 
-# ==========================================
-# 4. YENİ ARAÇ EKLEME PENCERESİ
-# ==========================================
 class YeniAracDialog(QDialog):
     def __init__(self):
         super(YeniAracDialog, self).__init__()
@@ -160,9 +148,6 @@ class YeniAracDialog(QDialog):
         finally:
              if hasattr(self, 'conn'): self.conn.close()
 
-# ==========================================
-# 5. ARAÇ GÜNCELLEME PENCERESİ
-# ==========================================
 class GuncelleAracDialog(QDialog):
     def __init__(self):
         super(GuncelleAracDialog, self).__init__()
@@ -222,9 +207,6 @@ class GuncelleAracDialog(QDialog):
         finally:
             if hasattr(self, 'conn'): self.conn.close()
 
-# ==========================================
-# 6. ARAÇ FİLTRELEME PENCERESİ
-# ==========================================
 class AracFiltreDialog(QDialog):
     def __init__(self):
         super(AracFiltreDialog, self).__init__()
@@ -247,23 +229,17 @@ class AracFiltreDialog(QDialog):
         self.btn_arac_filtre_uygula.clicked.connect(self.accept)
         self.btn_arac_filtre_iptal.clicked.connect(self.close)
 
-
-# ==========================================
-# 7. ANA PENCERE SINIFI
-# ==========================================
 class AracKiralamaApp(QMainWindow):
     def __init__(self):
         super(AracKiralamaApp, self).__init__()
         loadUi("main_window.ui", self)
         self.baglanti_kur()
         
-        # --- BAŞLANGIÇ YÜKLEMELERİ ---
         self.musterileri_listele() 
         self.araclari_listele()
         self.kiralamalari_yukle()
         self.raporlari_yukle()
 
-        # --- SİNYALLER (Müşteri & Araç) ---
         self.musteriaramaLineEdit.textChanged.connect(self.musterileri_listele)
         self.aracaraLineEdit.textChanged.connect(self.araclari_listele)
         
@@ -285,7 +261,6 @@ class AracKiralamaApp(QMainWindow):
         except AttributeError:
             pass
 
-        # --- SİNYALLER (Kiralama İşlemleri) ---
         self.kirala_pushbutton.clicked.connect(self.arac_kirala)
         self.teslimal_pushbutton.clicked.connect(self.arac_teslim_al)
         
@@ -300,9 +275,7 @@ class AracKiralamaApp(QMainWindow):
         self.kiralama_bitis_date.setDate(QDate.currentDate())
         self.teslimal_teslimalmatarihi_date.setDate(QDate.currentDate())
         
-        # Sekme değiştiğinde raporları yenile
         self.tabWidget.currentChanged.connect(self.sekme_degisti)
-
 
     def baglanti_kur(self):
         try:
@@ -312,12 +285,9 @@ class AracKiralamaApp(QMainWindow):
             print(f"Veritabanı hatası: {e}")
 
     def sekme_degisti(self, index):
-        if index == 3: # Raporlar sekmesi
+        if index == 3: 
             self.raporlari_yukle()
 
-    # ==========================================
-    # --- RAPORLAR MODÜLÜ (GÜNCELLENDİ) ---
-    # ==========================================
     def raporlari_yukle(self):
         self.rapor_ozetlerini_yukle()
         self.rapor_finansal_tablo_yukle()
@@ -362,9 +332,6 @@ class AracKiralamaApp(QMainWindow):
                 self.rapor_finansalhareketler_table.setItem(satir, sutun, QTableWidgetItem(str(deger)))
 
     def rapor_enler_tablolari_yukle(self):
-        # NOT: Bu kodun çalışması için Designer'da tabloları 'QTableWidget' yapmış olmalısın.
-        
-        # 1. En Çok Kiralanan Araçlar
         sorgu_arac = """
             SELECT A.Plaka || ' - ' || A.Marka, COUNT(K.KiralamaID) as Sayi
             FROM Kiralamalar K
@@ -384,7 +351,6 @@ class AracKiralamaApp(QMainWindow):
             self.rapor_enaraclar_table.setItem(s, 0, QTableWidgetItem(str(v[0])))
             self.rapor_enaraclar_table.setItem(s, 1, QTableWidgetItem(str(v[1])))
 
-        # 2. En İyi Müşteriler (En Çok Para Harcayanlar)
         sorgu_musteri = """
             SELECT M.Ad || ' ' || M.Soyad, SUM(O.Miktar) as ToplamHarcama
             FROM Odemeler O
@@ -405,7 +371,6 @@ class AracKiralamaApp(QMainWindow):
             self.rapor_enmusteriler_table.setItem(s, 0, QTableWidgetItem(str(v[0])))
             self.rapor_enmusteriler_table.setItem(s, 1, QTableWidgetItem(f"{v[1]:.2f} TL"))
 
-        # 3. En Çok Gelir Getiren Markalar
         sorgu_marka = """
             SELECT A.Marka, SUM(O.Miktar) as ToplamCiro
             FROM Odemeler O
@@ -426,8 +391,6 @@ class AracKiralamaApp(QMainWindow):
             self.rapor_enmarkalar_table.setItem(s, 0, QTableWidgetItem(str(v[0])))
             self.rapor_enmarkalar_table.setItem(s, 1, QTableWidgetItem(f"{v[1]:.2f} TL"))
 
-
-    # --- KİRALAMA EKRANI İÇİN VERİ YÜKLEME ---
     def kiralamalari_yukle(self):
         self.kiralama_musteri_combobox.clear()
         self.cursor.execute("SELECT MusteriID, Ad, Soyad FROM Musteriler")
@@ -466,7 +429,6 @@ class AracKiralamaApp(QMainWindow):
 
         self.aktif_kiralari_listele()
 
-    # --- AKTİF KİRALAR LİSTESİ ---
     def aktif_kiralari_listele(self):
         sorgu = """
             SELECT K.KiralamaID, M.Ad || ' ' || M.Soyad, A.Plaka, A.Marka, K.KiraBaslangicTarihi, K.KiraBitisTarihi, A.Durum, K.BaslangicKm
@@ -487,7 +449,6 @@ class AracKiralamaApp(QMainWindow):
             for sutun, deger in enumerate(veri):
                 self.aktifkiralar_table.setItem(satir, sutun, QTableWidgetItem(str(deger)))
 
-    # --- FİYAT HESAPLAMA ---
     def fiyat_hesapla(self):
         secili_arac_data = self.kiralama_arac_combobox.currentData()
         if not secili_arac_data:
@@ -504,7 +465,6 @@ class AracKiralamaApp(QMainWindow):
         toplam = gun_farki * gunluk_fiyat
         self.kiralama_toplamfiyat_label.setText(f"{toplam:.2f} TL")
 
-    # --- TESLİM EKRANI GÜNCELLEME ---
     def teslim_ekrani_guncelle(self):
         data = self.teslimal_araclar_combobox.currentData()
         if data:
@@ -516,7 +476,6 @@ class AracKiralamaApp(QMainWindow):
              self.teslimal_gecikme_label.setText("")
              self.teslimal_toplamtutar_label.setText("")
 
-    # --- TESLİM FİYAT & GECİKME HESAPLAMA ---
     def teslim_hesapla(self):
         data = self.teslimal_araclar_combobox.currentData()
         if not data: return
@@ -539,8 +498,6 @@ class AracKiralamaApp(QMainWindow):
         toplam_tutar = toplam_gun * gunluk_fiyat
         self.teslimal_toplamtutar_label.setText(f"{toplam_tutar:.2f} TL")
 
-
-    # --- ARAÇ KİRALA ---
     def arac_kirala(self):
         musteri_id = self.kiralama_musteri_combobox.currentData()
         arac_data = self.kiralama_arac_combobox.currentData()
@@ -576,7 +533,6 @@ class AracKiralamaApp(QMainWindow):
         except Exception as e:
             QMessageBox.critical(self, "Hata", f"Kiralama hatası: {e}")
 
-    # --- ARAÇ TESLİM AL ---
     def arac_teslim_al(self):
         data = self.teslimal_araclar_combobox.currentData()
         if not data: return
@@ -620,8 +576,6 @@ class AracKiralamaApp(QMainWindow):
         except Exception as e:
             QMessageBox.critical(self, "Hata", f"Teslim alma hatası: {e}")
 
-
-    # --- DİĞER FONKSİYONLAR ---
     def musteri_filtre_temizle(self):
         self.musteriaramaLineEdit.clear()
         self.musterileri_listele()

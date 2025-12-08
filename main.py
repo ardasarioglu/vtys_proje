@@ -239,6 +239,7 @@ class AracKiralamaApp(QMainWindow):
         self.araclari_listele()
         self.kiralamalari_yukle()
         self.raporlari_yukle()
+        self.setWindowTitle("Car Rental")
 
         self.musteriaramaLineEdit.textChanged.connect(self.musterileri_listele)
         self.aracaraLineEdit.textChanged.connect(self.araclari_listele)
